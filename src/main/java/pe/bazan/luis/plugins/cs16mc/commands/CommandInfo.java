@@ -1,5 +1,9 @@
 package pe.bazan.luis.plugins.cs16mc.commands;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+
+@Retention(RetentionPolicy.RUNTIME)
 public @interface CommandInfo {
     /**
      * The actual name of the command. Not really used anywhere.
