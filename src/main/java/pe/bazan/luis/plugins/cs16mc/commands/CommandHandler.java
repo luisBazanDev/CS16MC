@@ -4,13 +4,11 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
-import org.bukkit.conversations.Conversable;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import pe.bazan.luis.plugins.cs16mc.CS16MC;
 import pe.bazan.luis.plugins.cs16mc.commands.test.TestCommand;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class CommandHandler implements CommandExecutor, TabCompleter {
     private CS16MC plugin;
@@ -29,8 +27,8 @@ public class CommandHandler implements CommandExecutor, TabCompleter {
         String base = (args.length > 0 ? args[0] : "").toLowerCase();
         String last = (args.length > 0 ? args[args.length - 1] : "").toLowerCase();
 
-        // If the player is in a convo (Setup Mode), bail
-        if (sender instanceof Conversable && ((Conversable) sender).isConversing()) {
+        if (base.equals("help") || base.equals("h")) {
+            showHelp(sender);
             return true;
         }
 
@@ -43,10 +41,10 @@ public class CommandHandler implements CommandExecutor, TabCompleter {
         List<Command> matches = getMatchingCommands(base);
 
         // If there's more than one match, display them.
-        if (matches.size() > 1) {
+        if (matches.size() < 1) {
+            showHelp(sender);
             return true;
         }
-
 
         // Grab the only match.
         Command command  = matches.get(0);
@@ -67,13 +65,68 @@ public class CommandHandler implements CommandExecutor, TabCompleter {
         return true;
     }
 
+    @Override
+    public List<String> onTabComplete(CommandSender sender, org.bukkit.command.Command command, String label, String[] args) {
+        String base = (args.length > 0 ? args[0] : "").toLowerCase();
+
+        if (base.equals("help") || base.equals("h")) {
+            return null;
+        }
+
+        // List all commands
+        if (base.equals("")) {
+            return commands.values()
+                    .stream()
+                    .map(cmd -> cmd.getClass().getAnnotation(CommandInfo.class))
+                    .filter(info -> info != null && sender.hasPermission(info.permission()))
+                    .map(CommandInfo::name)
+                    .sorted()
+                    .collect(Collectors.toList());
+        }
+
+        // Filter subcommands
+        if (args.length == 1) {
+            return commands.values().stream()
+                    .map(cmd -> cmd.getClass().getAnnotation(CommandInfo.class))
+                    .filter(info -> info.name().startsWith(base))
+                    .map(CommandInfo::name)
+                    .sorted()
+                    .collect(Collectors.toList());
+        }
+
+        return null;
+    }
+
     private String[] trimFirstArg(String[] args) {
         return Arrays.copyOfRange(args, 1, args.length);
     }
 
-    @Override
-    public List<String> onTabComplete(CommandSender sender, org.bukkit.command.Command command, String label, String[] args) {
-        return null;
+    private void showHelp(CommandSender sender) {
+        StringBuilder test = new StringBuilder();
+        StringBuilder user = new StringBuilder();
+
+        for (Command command : commands.values()) {
+            CommandInfo info = command.getClass().getAnnotation(CommandInfo.class);
+            if (!sender.hasPermission(info.permission())) continue;
+
+            StringBuilder builder;
+            if (info.permission().startsWith("cs16mc.commands.test")) {
+                builder = test;
+            } else {
+                builder = user;
+            }
+
+            builder.append("\n")
+                    .append(ChatColor.RESET).append(info.usage()).append(" ")
+                    .append(ChatColor.YELLOW).append(info.desc());
+        }
+
+        if (test.length() == 0) {
+            sender.sendMessage("Commands:" + user);
+        } else {
+            sender.sendMessage("User commands:" + user);
+            if (test.length() > 1) sender.sendMessage("Test commands:"+test);
+        }
     }
 
     private List<Command> getMatchingCommands(String arg) {
