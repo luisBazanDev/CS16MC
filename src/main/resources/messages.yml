@@ -1,0 +1,7 @@
+permissions:
+  no-permission: "You don't have permission."
+help:
+  commands:
+    default: "Commands"
+    user: "User commands"
+    test: "Test commands"
