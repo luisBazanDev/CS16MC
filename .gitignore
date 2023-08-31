@@ -1,2 +1,8 @@
+# IDE
 .idea
+
+# Compile
 target/
+
+# Credentials
+.env
