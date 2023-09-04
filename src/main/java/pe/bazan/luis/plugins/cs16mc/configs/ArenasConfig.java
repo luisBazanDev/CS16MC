@@ -8,12 +8,12 @@ import pe.bazan.luis.plugins.cs16mc.domain.configs.ArenaData;
 import javax.annotation.Nullable;
 import java.util.HashMap;
 
-public class ArenaConfig {
+public class ArenasConfig {
     private CustomConfig configFile;
     private CS16MC plugin;
     private HashMap<String, ArenaData> arenas;
 
-    public ArenaConfig(CS16MC plugin) {
+    public ArenasConfig(CS16MC plugin) {
         this.plugin = plugin;
         registerConfig();
         load();
