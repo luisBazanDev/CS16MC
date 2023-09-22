@@ -1,4 +1,4 @@
-package pe.bazan.luis.plugins.cs16mc.domain.items.Arms;
+package pe.bazan.luis.plugins.cs16mc.domain.items.weapons;
 
 import pe.bazan.luis.plugins.cs16mc.domain.items.FireArms;
 
