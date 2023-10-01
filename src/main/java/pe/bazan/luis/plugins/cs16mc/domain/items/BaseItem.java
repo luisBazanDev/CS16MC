@@ -5,18 +5,9 @@ import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.event.EventHandler;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class BaseItem extends JavaPlugin {
-    ConsoleCommandSender myCmd= Bukkit.getConsoleSender();
-    @Override
-    public void onEnable(){
-        myCmd.sendMessage("§bEl plugin ha sido iniciado");
+public class BaseItem {
 
-    }
-    @Override
-    public  void onDisable(){
-        myCmd.sendMessage("§cEl plugin ha sido desactivado");
 
-    }
     public void onClick(){}
     public void onClickLeft(){}
     public void onEquip(){}
