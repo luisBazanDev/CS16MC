@@ -10,4 +10,5 @@ public class Grenade extends BaseItem {
         this.timeDenote= timeDenote;
         this.ratio= ratio;
     }
+
 }
