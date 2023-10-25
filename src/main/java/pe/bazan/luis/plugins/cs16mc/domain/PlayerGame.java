@@ -1,12 +1,9 @@
 package pe.bazan.luis.plugins.cs16mc.domain;
 
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-import java.util.UUID;
-
 public class PlayerGame {
-    private Player player;
+    final private Player player;
     private double money;
     private int kills;
     private int deaths;
