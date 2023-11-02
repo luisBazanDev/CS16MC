@@ -4,14 +4,16 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
+import org.bukkit.entity.Player;
 import pe.bazan.luis.plugins.cs16mc.CS16MC;
+import pe.bazan.luis.plugins.cs16mc.commands.games.GameCommand;
 import pe.bazan.luis.plugins.cs16mc.commands.test.TestCommand;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class CommandHandler implements CommandExecutor, TabCompleter {
-    private CS16MC plugin;
+    private final CS16MC plugin;
     private Map<String, Command> commands;
 
     public CommandHandler(CS16MC plugin) {
@@ -47,7 +49,7 @@ public class CommandHandler implements CommandExecutor, TabCompleter {
         }
 
         // Grab the only match.
-        Command command  = matches.get(0);
+        Command command = matches.get(0);
         CommandInfo info = command.getClass().getAnnotation(CommandInfo.class);
 
         // First check if the sender has permission.
@@ -94,6 +96,14 @@ public class CommandHandler implements CommandExecutor, TabCompleter {
                     .collect(Collectors.toList());
         }
 
+        if (
+                args.length > 1
+                        && commands.get(args[0]) != null
+                        && sender instanceof Player
+        ) {
+            return commands.get(args[0]).tab(plugin, (Player) sender, Arrays.copyOfRange(args, 1, args.length));
+        }
+
         return null;
     }
 
@@ -125,7 +135,7 @@ public class CommandHandler implements CommandExecutor, TabCompleter {
             sender.sendMessage("Commands:" + user);
         } else {
             sender.sendMessage("User commands:" + user);
-            if (test.length() > 1) sender.sendMessage("Test commands:"+test);
+            if (test.length() > 1) sender.sendMessage("Test commands:" + test);
         }
     }
 
@@ -133,7 +143,7 @@ public class CommandHandler implements CommandExecutor, TabCompleter {
         List<Command> result = new ArrayList<>();
 
         // Grab the commands that match the argument.
-        for (Map.Entry<String,Command> entry : commands.entrySet()) {
+        for (Map.Entry<String, Command> entry : commands.entrySet()) {
             if (arg.matches(entry.getKey())) {
                 result.add(entry.getValue());
             }
@@ -145,16 +155,18 @@ public class CommandHandler implements CommandExecutor, TabCompleter {
     private void showUsage(Command command, CommandSender sender) {
         sender.sendMessage(ChatColor.translateAlternateColorCodes('&',
                 String.format("Usage: ", command.getClass().getAnnotation(CommandInfo.class).usage())
-                ));
+        ));
     }
 
     private void registerCommands() {
         commands = new HashMap<>();
         register(TestCommand.class);
+        register(GameCommand.class);
     }
 
     /**
      * Register a command.
+     *
      * @param cmd a Command
      */
     private void register(Class<? extends Command> cmd) {
@@ -168,12 +180,13 @@ public class CommandHandler implements CommandExecutor, TabCompleter {
 
     /**
      * Register a command
+     *
      * @param cmd a Command
      */
     public void register(Command cmd) {
         Class<?> cls = cmd.getClass();
         CommandInfo info = cls.getAnnotation(CommandInfo.class);
-        if(info == null) {
+        if (info == null) {
             throw new IllegalArgumentException("Missing CommandInfo annotation on class " + cls.getName());
         }
 
