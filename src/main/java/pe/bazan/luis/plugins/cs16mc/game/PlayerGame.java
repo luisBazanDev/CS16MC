@@ -1,20 +1,22 @@
-package pe.bazan.luis.plugins.cs16mc.domain;
+package pe.bazan.luis.plugins.cs16mc.game;
 
 import org.bukkit.entity.Player;
 
 public class PlayerGame {
     final private Player player;
-    private double money;
-    private int kills;
-    private int deaths;
-    private int assistants;
+    private final double money;
+    private final int kills;
+    private final int deaths;
+    private final int assistants;
+    private final Game game;
 
-    private PlayerGame(Player player) {
+    private PlayerGame(Player player, Game game) {
         this.player = player;
         this.money = 0;
         this.kills = 0;
         this.deaths = 0;
         this.assistants = 0;
+        this.game = game;
     }
 
     public Player getPlayer() {
@@ -35,5 +37,9 @@ public class PlayerGame {
 
     public int getAssistants() {
         return assistants;
+    }
+
+    public Game getGame() {
+        return game;
     }
 }
