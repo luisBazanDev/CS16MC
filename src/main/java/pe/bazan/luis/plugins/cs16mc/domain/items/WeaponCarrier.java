@@ -1,6 +1,6 @@
 package pe.bazan.luis.plugins.cs16mc.domain.items;
 
-public class WeaponCarrier extends BaseItem{
+public abstract class WeaponCarrier extends BaseItem{
 
     float price;
     float damage;

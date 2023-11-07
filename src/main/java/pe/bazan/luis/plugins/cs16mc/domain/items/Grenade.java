@@ -11,4 +11,18 @@ public class Grenade extends BaseItem {
         this.ratio= ratio;
     }
 
+    @Override
+    public void onClickRight() {
+
+    }
+
+    @Override
+    public void onClickLeft() {
+
+    }
+
+    @Override
+    public void onEquip() {
+
+    }
 }

@@ -7,4 +7,19 @@ public class WhiteWeapon extends WeaponCarrier{
     }
 
     public void attack(){}
+
+    @Override
+    public void onClickRight() {
+
+    }
+
+    @Override
+    public void onClickLeft() {
+
+    }
+
+    @Override
+    public void onEquip() {
+
+    }
 }
