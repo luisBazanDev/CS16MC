@@ -3,13 +3,13 @@ package pe.bazan.luis.plugins.cs16mc.domain.enums;
 public enum WeaponsType {
     //GUN
 //----------------BOTH-------------------
-    _9X19MM_SIDEARM, // Glock18
+    SIDEARM_9X19MM, // Glock18
     KM45_TACTICAL, //  HK_USP
-    _228_COMPACT, //  SIG_P228
+    COMPACT_228, //  SIG_P228
     NIGHT_HAWK50C,//  DESERT_EAGLE
 //------------------------------------------------
     ES_FIVE_SEVEN, // FN_Five_Seven  C
-    _40DUAL_ELITE,//  Dual_Beretta_96G_Elite   T
+    ELITE_40DUAL,//  Dual_Beretta_96G_Elite   T
 
 // SHOTGUNS
     //-------------BOTH--------------------------

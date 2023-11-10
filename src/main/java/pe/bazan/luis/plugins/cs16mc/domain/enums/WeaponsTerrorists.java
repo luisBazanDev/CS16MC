@@ -1,7 +1,7 @@
 package pe.bazan.luis.plugins.cs16mc.domain.enums;
 
-public enum WeaponsTerrorist {
-    _40DUAL_ELITE,//  Dual_Beretta_96G_Elite
+public enum WeaponsTerrorists {
+    ELITE_40DUAL,//  Dual_Beretta_96G_Elite
     INGRAM_MAC_10, // Ingram_MAC_10
     IDF_DEFENDER, //  IDF_Defender
     CV_47, //  AK_47

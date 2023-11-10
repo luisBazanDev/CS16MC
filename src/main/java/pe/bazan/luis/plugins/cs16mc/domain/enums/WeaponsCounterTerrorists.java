@@ -1,6 +1,6 @@
 package pe.bazan.luis.plugins.cs16mc.domain.enums;
 
-public enum WeaponsCounterTerrorist {
+public enum WeaponsCounterTerrorists {
 
     ES_FIVE_SEVEN, // FN_Five_Seven
     SCHMIDT_MACHINE_PISTOL,//  Steyr_Tactical_Machine_Pistol
