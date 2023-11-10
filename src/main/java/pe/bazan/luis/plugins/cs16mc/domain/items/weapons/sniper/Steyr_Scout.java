@@ -1,4 +1,4 @@
-package pe.bazan.luis.plugins.cs16mc.domain.items.weapons.rifle.assault.sniper;
+package pe.bazan.luis.plugins.cs16mc.domain.items.weapons.sniper;
 
 public interface Steyr_Scout {
     static String name = "Schmidt Scout";

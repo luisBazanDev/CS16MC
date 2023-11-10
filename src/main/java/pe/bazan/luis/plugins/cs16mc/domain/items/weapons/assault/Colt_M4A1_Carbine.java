@@ -1,4 +1,4 @@
-package pe.bazan.luis.plugins.cs16mc.domain.items.weapons.rifle.assault;
+package pe.bazan.luis.plugins.cs16mc.domain.items.weapons.assault;
 
 public interface Colt_M4A1_Carbine {
     static String name = "Maverick M4A1 Carbine";

@@ -1,4 +1,4 @@
-package pe.bazan.luis.plugins.cs16mc.domain.items.weapons.rifle.assault;
+package pe.bazan.luis.plugins.cs16mc.domain.items.weapons.assault;
 
 public interface Sig_SG_552_Commando {
     static String name = "Krieg 552 Commando";

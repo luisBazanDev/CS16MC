@@ -1,4 +1,4 @@
-package pe.bazan.luis.plugins.cs16mc.domain.items.weapons.rifle.assault;
+package pe.bazan.luis.plugins.cs16mc.domain.items.weapons.assault;
 
 public interface AK_47 {
     static String name = "CV-47";

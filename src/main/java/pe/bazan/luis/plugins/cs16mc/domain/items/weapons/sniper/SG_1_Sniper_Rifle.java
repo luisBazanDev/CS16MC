@@ -1,4 +1,4 @@
-package pe.bazan.luis.plugins.cs16mc.domain.items.weapons.rifle.assault.sniper;
+package pe.bazan.luis.plugins.cs16mc.domain.items.weapons.sniper;
 
 public interface SG_1_Sniper_Rifle {
     static String name = "D3/AU-1 Semi-Auto Sniper Rifle";
