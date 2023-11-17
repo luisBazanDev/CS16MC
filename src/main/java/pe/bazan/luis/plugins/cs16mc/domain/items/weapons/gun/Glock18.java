@@ -1,7 +1,7 @@
 package pe.bazan.luis.plugins.cs16mc.domain.items.weapons.gun;
 
 public interface Glock18 {
-    static String name = "";
+    static String name = "9×19mm Sidearm";
     static String type = "pistol"; // Tipo de arma para la tienda: melee / pistol / shotgun / submachine gun / assult / sniper
     static String side = "all"; // para que bando es counter-terrorist / terrorist / all
     static float price = 12; // Precio del arma

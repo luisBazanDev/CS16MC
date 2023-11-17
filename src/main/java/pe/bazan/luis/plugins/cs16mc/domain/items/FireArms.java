@@ -4,10 +4,15 @@ package pe.bazan.luis.plugins.cs16mc.domain.items;
 import org.bukkit.Bukkit;
 import pe.bazan.luis.plugins.cs16mc.CS16MC;
 
-public class FireArms extends WeaponCarrier {
 
-     float weight;
+public class FireArms extends WeaponCarrier{
+
+     String type;
+     String side;
+     float priceAmmo;
      int rechargeTime;
+     int baseCapacity;
+     int extraCapacity;
      int chargerCapacity;
      int currentCapacity;
      boolean reloading;
@@ -28,10 +33,15 @@ public class FireArms extends WeaponCarrier {
 
      }
 
-     public FireArms(float price, float damage, float weight, int rechargeTime, int chargerCapacity, int currentCapacity, boolean reloading) {
-          super(price, damage);
-          this.weight = weight;
+     public FireArms(String name, String type, String side, float price, float priceAmmo, int baseCapacity, int extraCapacity,
+             float damage, float secondaryDamage, int rechargeTime, int chargerCapacity, int currentCapacity) {
+          super(name, price, damage, secondaryDamage);
+          this.priceAmmo= priceAmmo;
+          this.side= side;
+          this.type= type;
           this.rechargeTime = rechargeTime;
+          this.baseCapacity = baseCapacity;
+          this.extraCapacity = extraCapacity;
           this.chargerCapacity = chargerCapacity;
           this.currentCapacity = currentCapacity;
           this.reloading = false;
@@ -64,12 +74,11 @@ public class FireArms extends WeaponCarrier {
 
      }
 
-     public float getWeight() {
-          return weight;
-     }
 
      public int getCurrentCapacity() {
           return currentCapacity;
      }
+
+
 }
 
