@@ -4,6 +4,7 @@ main: pe.bazan.luis.plugins.cs16mc.CS16MC
 authors:
   - Luis Bazan
 api-version: '1.20'
+depend: [ Multiverse-Core ]
 commands:
   cs16mc:
     permission: cs16mc.commands
