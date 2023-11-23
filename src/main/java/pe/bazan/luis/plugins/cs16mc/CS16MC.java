@@ -4,6 +4,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import pe.bazan.luis.plugins.cs16mc.commands.CommandHandler;
 import pe.bazan.luis.plugins.cs16mc.configs.ArenasConfig;
 import pe.bazan.luis.plugins.cs16mc.configs.MessagesConfig;
+import pe.bazan.luis.plugins.cs16mc.events.ItemInMainHandEvent;
 import pe.bazan.luis.plugins.cs16mc.events.JoinServer;
 
 public final class CS16MC extends JavaPlugin {
@@ -18,6 +19,7 @@ public final class CS16MC extends JavaPlugin {
         loadConfigs();
         setUpCommandHandler();
         getServer().getPluginManager().registerEvents(new JoinServer(), this);
+        getServer().getPluginManager().registerEvents(new ItemInMainHandEvent(), this);
     }
 
     @Override
