@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 import pe.bazan.luis.plugins.cs16mc.CS16MC;
 import pe.bazan.luis.plugins.cs16mc.commands.games.GameCommand;
 import pe.bazan.luis.plugins.cs16mc.commands.test.TestCommand;
+import pe.bazan.luis.plugins.cs16mc.commands.test.WorldTestCommand;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -162,6 +163,7 @@ public class CommandHandler implements CommandExecutor, TabCompleter {
         commands = new HashMap<>();
         register(TestCommand.class);
         register(GameCommand.class);
+        register(WorldTestCommand.class);
     }
 
     /**
