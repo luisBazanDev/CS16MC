@@ -1,6 +1,10 @@
 package pe.bazan.luis.plugins.cs16mc.controllers;
 
 import org.bukkit.World;
+import org.bukkit.entity.Player;
+import pe.bazan.luis.plugins.cs16mc.CS16MC;
+import pe.bazan.luis.plugins.cs16mc.domain.PluginMap;
+import pe.bazan.luis.plugins.cs16mc.domain.enums.MapType;
 import pe.bazan.luis.plugins.cs16mc.game.Game;
 import pe.bazan.luis.plugins.cs16mc.game.PlayerGame;
 
@@ -40,9 +44,49 @@ public class GameController {
     @Nullable
     public Game getGame(World world) {
         for (Game game : games) {
-            if (game.getWorld().equals(world)) return game;
+            if (game.getPluginMap().getWorld().getCBWorld().equals(world)) return game;
         }
         return null;
+    }
+
+    @Nullable
+    public Game getGameById(String gameId) {
+        for (Game game : games) {
+            if (game.getGameId().equalsIgnoreCase(gameId)) return game;
+        }
+        return null;
+    }
+
+    public List<Game> getGames() {
+        return games;
+    }
+
+    public Game createGame(MapType mapType, int teamsAmount) {
+        PluginMap pluginMap = WorldController.getInstance().getFreeMap(mapType);
+        Game game = new Game(
+                CS16MC.getInstance().getMapsConfig().getArena(mapType.name()),
+                pluginMap,
+                teamsAmount
+        );
+
+        pluginMap.setGame(game);
+
+        games.add(game);
+        return game;
+    }
+
+    public void stopGame(Game game) {
+        for (PlayerGame playerGame : players.values()) {
+            playerGame.getPlayer().teleport(CS16MC.getInstance().getPluginConfig().getLobby());
+        }
+        game.getPluginMap().setGame(null);
+        games.remove(game);
+    }
+
+    public PlayerGame joinPlayer(Player player, Game game) {
+        PlayerGame playerGame = new PlayerGame(player, game);
+        players.put(player.getName(), playerGame);
+        return playerGame;
     }
 
     public static GameController getInstance() {

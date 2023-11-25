@@ -2,14 +2,16 @@ package pe.bazan.luis.plugins.cs16mc;
 
 import org.bukkit.plugin.java.JavaPlugin;
 import pe.bazan.luis.plugins.cs16mc.commands.CommandHandler;
-import pe.bazan.luis.plugins.cs16mc.configs.ArenasConfig;
+import pe.bazan.luis.plugins.cs16mc.configs.MapsConfig;
 import pe.bazan.luis.plugins.cs16mc.configs.MessagesConfig;
+import pe.bazan.luis.plugins.cs16mc.configs.PluginConfig;
 import pe.bazan.luis.plugins.cs16mc.controllers.WorldController;
 import pe.bazan.luis.plugins.cs16mc.events.JoinServer;
 
 public final class CS16MC extends JavaPlugin {
     private MessagesConfig messagesConfig;
-    private ArenasConfig arenasConfig;
+    private MapsConfig mapsConfig;
+    private PluginConfig pluginConfig;
     private static CS16MC instance;
 
     @Override
@@ -30,7 +32,8 @@ public final class CS16MC extends JavaPlugin {
     public void loadConfigs() {
         // Load all config files
         messagesConfig = new MessagesConfig(this);
-        arenasConfig = new ArenasConfig(this);
+        mapsConfig = new MapsConfig(this);
+        pluginConfig = new PluginConfig(this);
     }
 
     public void setUpCommandHandler() {
@@ -41,11 +44,15 @@ public final class CS16MC extends JavaPlugin {
         return instance;
     }
 
-    public ArenasConfig getArenasConfig() {
-        return arenasConfig;
+    public MapsConfig getMapsConfig() {
+        return mapsConfig;
     }
 
     public MessagesConfig getMessagesConfig() {
         return messagesConfig;
+    }
+
+    public PluginConfig getPluginConfig() {
+        return pluginConfig;
     }
 }

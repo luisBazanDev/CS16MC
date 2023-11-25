@@ -12,21 +12,21 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class ArenaData {
-    private String name;
-    private String displayName;
-    private int rounds;
-    private int timeBomb;
-    private int timeTimeout;
-    private int maxPlayerPerTeam;
-    private int minPlayerPerTeam;
-    private HashMap<MoneyType, Double> money;
-    private Location lobby;
-    private Location spectators;
-    private List<Location> terrorists;
-    private List<Location> counterTerrorists;
+public class MapData {
+    private final String name;
+    private final String displayName;
+    private final int rounds;
+    private final int timeBomb;
+    private final int timeTimeout;
+    private final int maxPlayerPerTeam;
+    private final int minPlayerPerTeam;
+    private final HashMap<MoneyType, Double> money;
+    private final Location lobby;
+    private final Location spectators;
+    private final List<Location> terrorists;
+    private final List<Location> counterTerrorists;
 
-    private ArenaData(String name, String displayName, int rounds, int timeBomb, int timeTimeout, int maxPlayerPerTeam, int minPlayerPerTeam, HashMap<MoneyType, Double> money, Location lobby, Location spectators, List<Location> terrorists, List<Location> counterTerrorists) {
+    private MapData(String name, String displayName, int rounds, int timeBomb, int timeTimeout, int maxPlayerPerTeam, int minPlayerPerTeam, HashMap<MoneyType, Double> money, Location lobby, Location spectators, List<Location> terrorists, List<Location> counterTerrorists) {
         this.name = name;
         this.displayName = displayName;
         this.rounds = rounds;
@@ -42,7 +42,7 @@ public class ArenaData {
     }
 
     @Nullable
-    public static ArenaData makeArena(ConfigurationSection config) {
+    public static MapData makeArena(ConfigurationSection config) {
         String name = config.getName();
         String displayName = config.getString("displayName");
         int rounds = config.getInt("rounds", 5);
@@ -67,26 +67,26 @@ public class ArenaData {
         List counterTerrorist = config.getList("spawn.counter-terrorist");
         if (
                 lobby.size() != 3
-                || spectator.size() != 3
-                || terrorist.size() == 0
-                || counterTerrorist.size() == 0
+                        || spectator.size() != 3
+                        || terrorist.size() == 0
+                        || counterTerrorist.size() == 0
         ) return null;
         List<Location> terroristLocations = new ArrayList<>();
         List<Location> counterTerroristLocations = new ArrayList<>();
 
         for (int i = 0; i < terrorist.size(); i++) {
-            List<Integer> point = config.getIntegerList("spawn.terrorist."+i);
+            List<Integer> point = config.getIntegerList("spawn.terrorist." + i);
             if (point.size() != 3) continue;
             terroristLocations.add(resolveLocation(world, point.stream().mapToInt(Integer::intValue).toArray()));
         }
 
         for (int i = 0; i < counterTerrorist.size(); i++) {
-            List<Integer> point = config.getIntegerList("spawn.counter-terrorist."+i);
+            List<Integer> point = config.getIntegerList("spawn.counter-terrorist." + i);
             if (point.size() != 3) continue;
             counterTerroristLocations.add(resolveLocation(world, point.stream().mapToInt(Integer::intValue).toArray()));
         }
 
-        return new ArenaData(
+        return new MapData(
                 name,
                 displayName,
                 rounds,

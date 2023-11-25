@@ -3,17 +3,17 @@ package pe.bazan.luis.plugins.cs16mc.configs;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import pe.bazan.luis.plugins.cs16mc.CS16MC;
-import pe.bazan.luis.plugins.cs16mc.domain.configs.ArenaData;
+import pe.bazan.luis.plugins.cs16mc.domain.configs.MapData;
 
 import javax.annotation.Nullable;
 import java.util.HashMap;
 
-public class ArenasConfig {
+public class MapsConfig {
     private CustomConfig configFile;
-    private CS16MC plugin;
-    private HashMap<String, ArenaData> arenas;
+    private final CS16MC plugin;
+    private HashMap<String, MapData> arenas;
 
-    public ArenasConfig(CS16MC plugin) {
+    public MapsConfig(CS16MC plugin) {
         this.plugin = plugin;
         registerConfig();
         load();
@@ -30,7 +30,7 @@ public class ArenasConfig {
         arenas = new HashMap<>();
         for (String key : config.getKeys(false)) {
             ConfigurationSection arenaCOnfig = config.getConfigurationSection(key);
-            ArenaData arena = ArenaData.makeArena(arenaCOnfig);
+            MapData arena = MapData.makeArena(arenaCOnfig);
             if (arena == null) {
                 plugin.getLogger().info("Error on load arena config: " + key);
                 continue;
@@ -40,17 +40,17 @@ public class ArenasConfig {
         }
     }
 
-    public void reloadConfig(){
+    public void reloadConfig() {
         configFile.reloadConfig();
         load();
     }
 
-    public HashMap<String, ArenaData> getArenas() {
+    public HashMap<String, MapData> getArenas() {
         return arenas;
     }
 
     @Nullable
-    public ArenaData getArena(String key) {
+    public MapData getArena(String key) {
         return arenas.get(key);
     }
 }

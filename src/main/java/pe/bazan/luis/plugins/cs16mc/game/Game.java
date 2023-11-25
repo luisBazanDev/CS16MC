@@ -1,37 +1,52 @@
 package pe.bazan.luis.plugins.cs16mc.game;
 
-import org.bukkit.World;
-import pe.bazan.luis.plugins.cs16mc.domain.configs.ArenaData;
+import pe.bazan.luis.plugins.cs16mc.controllers.GameController;
+import pe.bazan.luis.plugins.cs16mc.domain.PluginMap;
+import pe.bazan.luis.plugins.cs16mc.domain.configs.MapData;
 
 public class Game {
     private GameState gameState;
-    private final ArenaData arenaData;
-    private final World world;
+    private final MapData mapData;
+    private final PluginMap pluginMap;
     private final GameTeam[] gameTeams;
 
-    public Game(ArenaData arenaData, World world, int teamsAmount) {
+    public Game(MapData mapData, PluginMap pluginMap, int teamsAmount) {
         this.gameState = GameState.WAITING;
-        this.arenaData = arenaData;
-        this.world = world;
+        this.mapData = mapData;
+        this.pluginMap = pluginMap;
         this.gameTeams = new GameTeam[teamsAmount];
         for (int i = 0; i < teamsAmount; i++) {
             gameTeams[i] = new GameTeam();
         }
     }
 
-    public ArenaData getArenaData() {
-        return arenaData;
+    public MapData getArenaData() {
+        return mapData;
     }
 
     public GameState getGameState() {
         return gameState;
     }
 
-    public World getWorld() {
-        return world;
+    public PluginMap getPluginMap() {
+        return pluginMap;
     }
 
     public void setGameState(GameState gameState) {
         this.gameState = gameState;
+    }
+
+    public boolean start() {
+        if (!gameState.equals(GameState.WAITING)) return false;
+        gameState = GameState.STARTING;
+        return true;
+    }
+
+    public void stop() {
+        GameController.getInstance().stopGame(this);
+    }
+
+    public String getGameId() {
+        return pluginMap.getCBWorld().getName().replaceFirst("cs16mc_", "");
     }
 }

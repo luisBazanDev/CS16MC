@@ -10,7 +10,7 @@ public class PlayerGame {
     private final int assistants;
     private final Game game;
 
-    private PlayerGame(Player player, Game game) {
+    public PlayerGame(Player player, Game game) {
         this.player = player;
         this.money = 0;
         this.kills = 0;

@@ -2,6 +2,7 @@ package pe.bazan.luis.plugins.cs16mc.domain;
 
 import com.onarandombox.MultiverseCore.api.MultiverseWorld;
 import org.bukkit.Location;
+import org.bukkit.World;
 import pe.bazan.luis.plugins.cs16mc.domain.enums.MapType;
 import pe.bazan.luis.plugins.cs16mc.game.Game;
 
@@ -44,5 +45,9 @@ public class PluginMap {
 
     public boolean isFree() {
         return game == null;
+    }
+
+    public World getCBWorld() {
+        return world.getCBWorld();
     }
 }
